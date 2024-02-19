@@ -93,6 +93,23 @@ export const GuessTheWord = () => {
         setWords(updatedWords);
     };
 
+    const resetWords = () => {
+        let updatedGuessedWords = [...guessedWords];
+        const shuffledWords = shuffleWords(updatedGuessedWords);
+
+        setWords(shuffledWords);
+        setGuessedWords([]);
+    };
+
+    const shuffleWords = (words) => {
+        for (let i = words.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [words[i], words[j]] = [words[j], words[i]];
+        }
+
+        return words;
+    };
+
     // Teams
     const [teams, setTeams] = useState(["Team 1", "Team 2"]);
     const [currentTeam, setCurrentTeam] = useState(teams[0]);
@@ -117,6 +134,7 @@ export const GuessTheWord = () => {
 
         stopGame();
         changeTeam();
+        resetWords();
         setCurrentTurn(currentTurn + 1);
     };
 
