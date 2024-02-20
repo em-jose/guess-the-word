@@ -206,6 +206,8 @@ export const GuessTheWord = () => {
                 </ul>
             </div>
 
+            <hr />
+
             {/*  */}
             <div>
                 <ul>
@@ -225,7 +227,15 @@ export const GuessTheWord = () => {
                     ))}
                     <li>Remaining words: {words.length}</li>
                 </ul>
+                <button onClick={() => document.body.requestFullscreen()}>
+                    Enter full screen
+                </button>
+                <button onClick={() => document.exitFullscreen()}>
+                    Exit full screen
+                </button>
             </div>
+
+            <hr />
 
             {/*  */}
             <div>
