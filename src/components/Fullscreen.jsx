@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const Fullscreen = () => {
     const [fullscreen, setFullscreen] = useState(false);
-    
+
     const handleFullScreen = () => {
         if (fullscreen) {
             document.exitFullscreen();
@@ -18,7 +18,7 @@ export const Fullscreen = () => {
     return (
         <div className="my-5">
             <button
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-2 border border-blue-500 hover:border-transparent rounded mr-3"
+                className="bg-transparent hover:bg-black text-black font-semibold hover:text-white py-1 px-2 border border-black hover:border-transparent rounded mr-3"
                 onClick={handleFullScreen}
             >
                 <FontAwesomeIcon icon={faExpand} />

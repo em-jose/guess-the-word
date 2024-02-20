@@ -1,3 +1,6 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+
 export const Words = ({
     words,
     currentWord,
@@ -6,20 +9,24 @@ export const Words = ({
 }) => {
     return (
         <div className="mt-5">
-            <p>{words[currentWord]}</p>
+            <div className="flex justify-center items-center">
+                <p className="text-marker font-bold text-6xl">
+                    {words[currentWord]}
+                </p>
+            </div>
             {words.length && (
-                <div>
+                <div className="flex justify-center items-center mt-5">
                     <button
-                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3"
+                        class="bg-emerald-500 hover:bg-emerald-700 text-amber-50 font-bold py-2 px-4 rounded mr-3"
                         onClick={wordIsCorrect}
                     >
-                        Correct!
+                        <FontAwesomeIcon icon={faCheck} />
                     </button>
                     <button
-                        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3"
+                        className="bg-rose-600 hover:bg-rose-700 text-amber-50 font-bold py-2 px-4 rounded"
                         onClick={wordIsNotCorrect}
                     >
-                        Incorrect
+                        <FontAwesomeIcon icon={faXmark} />
                     </button>
                 </div>
             )}

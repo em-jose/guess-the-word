@@ -191,17 +191,11 @@ export const GuessTheWord = () => {
     };
 
     return (
-        <div className="p-5">
+        <div className="p-5 bg-amber-50">
             <header>
                 <h1 className="title">Guess the Word!</h1>
-                <GameInfo
-                    currentTurn={currentTurn}
-                    teams={teams}
-                    remainingWords={words.length}
-                    currentTeam={currentTeam}
-                />
 
-                <Fullscreen />
+                {/* <Fullscreen /> */}
             </header>
 
             <main>
@@ -215,8 +209,15 @@ export const GuessTheWord = () => {
                     <div>
                         {isPlaying ? (
                             <div>
+                                <div className="flex justify-center items-center">
+                                    <span className="text-marker">
+                                        {teams[currentTeam].name}
+                                    </span>
+                                </div>
+
                                 <Timer
                                     timer={timer}
+                                    isRunning={isRunning}
                                     stopTimer={stopTimer}
                                     resumeTimer={resumeTimer}
                                 />
@@ -229,9 +230,15 @@ export const GuessTheWord = () => {
                                 />
                             </div>
                         ) : (
-                            <div>
+                            <div className="flex justify-center items-center flex-col">
+                                <GameInfo
+                                    currentTurn={currentTurn}
+                                    teams={teams}
+                                    remainingWords={words.length}
+                                    currentTeam={currentTeam}
+                                />
                                 <button
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    className="bg-rose-600 hover:bg-rose-700 text-amber-50 font-bold py-2 px-4 rounded text-marker mt-5"
                                     onClick={initGame}
                                 >
                                     Play!

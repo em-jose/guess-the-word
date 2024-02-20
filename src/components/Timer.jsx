@@ -1,19 +1,31 @@
-export const Timer = ({ timer, stopTimer, resumeTimer }) => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock, faStop, faPlay } from "@fortawesome/free-solid-svg-icons";
+
+export const Timer = ({ timer, isRunning, stopTimer, resumeTimer }) => {
     return (
-        <div>
-            <h2>{timer}</h2>
-            <button
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3"
-                onClick={stopTimer}
-            >
-                <span>Stop timer</span>
-            </button>
-            <button
-                className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded mr-3"
-                onClick={resumeTimer}
-            >
-                <span>Resume timer</span>
-            </button>
+        <div className="mt-1">
+            <div className="flex justify-center items-center">
+                <span className="text-marker text-rose-600 text-5xl">
+                    {timer}
+                </span>
+            </div>
+            <div className="flex justify-center items-center mt-2">
+                {isRunning ? (
+                    <button
+                        className="bg-transparent text-black font-semibol py-2 px-4 border border-black rounded"
+                        onClick={stopTimer}
+                    >
+                        <FontAwesomeIcon icon={faStop} />
+                    </button>
+                ) : (
+                    <button
+                        className="bg-transparent text-black font-semibold py-2 px-4 border border-black rounded"
+                        onClick={resumeTimer}
+                    >
+                        <FontAwesomeIcon icon={faPlay} />
+                    </button>
+                )}
+            </div>
         </div>
     );
 };
