@@ -191,25 +191,6 @@ export const GuessTheWord = () => {
     return (
         <>
             <h1>Guess the Word - App</h1>
-
-            {/* Info */}
-            <div>
-                <ul>
-                    <li>Turn: {currentTurn}</li>
-                    <li>Current team: {teams[currentTeam].name}</li>
-                    <li>{JSON.stringify(teams)}</li>
-                    <li>Is playing: {JSON.stringify(isPlaying)}</li>
-                    <li>Timer: {timer}</li>
-                    <li>Current word: {words[currentWord]}</li>
-                    <li>Words: {JSON.stringify(words)}</li>
-                    <li>Guessed words: {JSON.stringify(guessedWords)}</li>
-                    <li>Remaining words: {words.length}</li>
-                </ul>
-            </div>
-
-            <hr />
-
-            {/*  */}
             <div>
                 <GameInfo
                     currentTurn={currentTurn}
@@ -221,9 +202,6 @@ export const GuessTheWord = () => {
                 <Fullscreen />
             </div>
 
-            <hr />
-
-            {/*  */}
             <div>
                 {ended ? (
                     <EndGame
