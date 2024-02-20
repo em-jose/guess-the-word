@@ -192,9 +192,8 @@ export const GuessTheWord = () => {
 
     return (
         <>
-            <h1>Guess the Word - App</h1>
-
             <header>
+                <h1>Guess the Word - App</h1>
                 <GameInfo
                     currentTurn={currentTurn}
                     teams={teams}
@@ -231,7 +230,12 @@ export const GuessTheWord = () => {
                             </div>
                         ) : (
                             <div>
-                                <button onClick={initGame}>Play!</button>
+                                <button
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    onClick={initGame}
+                                >
+                                    Play!
+                                </button>
                             </div>
                         )}
                     </div>
