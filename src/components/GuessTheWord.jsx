@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Fullscreen } from "./Fullscreen";
 import { GameInfo } from "./GameInfo";
 import { EndGame } from "./EndGame";
+import { Timer } from "./Timer";
+import { Words } from "./Words";
 
 export const GuessTheWord = () => {
     // Game
@@ -191,7 +193,8 @@ export const GuessTheWord = () => {
     return (
         <>
             <h1>Guess the Word - App</h1>
-            <div>
+
+            <header>
                 <GameInfo
                     currentTurn={currentTurn}
                     teams={teams}
@@ -200,9 +203,9 @@ export const GuessTheWord = () => {
                 />
 
                 <Fullscreen />
-            </div>
+            </header>
 
-            <div>
+            <main>
                 {ended ? (
                     <EndGame
                         winnerName={teams[winner].name}
@@ -213,24 +216,18 @@ export const GuessTheWord = () => {
                     <div>
                         {isPlaying ? (
                             <div>
-                                <h2>{timer}</h2>
-                                <button onClick={stopTimer}>
-                                    <span>Stop timer</span>
-                                </button>
-                                <button onClick={resumeTimer}>
-                                    <span>Resume timer</span>
-                                </button>
-                                <p>{words[currentWord]}</p>
-                                {words.length && (
-                                    <div>
-                                        <button onClick={wordIsCorrect}>
-                                            Correct!
-                                        </button>
-                                        <button onClick={wordIsNotCorrect}>
-                                            Incorrect
-                                        </button>
-                                    </div>
-                                )}
+                                <Timer
+                                    timer={timer}
+                                    stopTimer={stopTimer}
+                                    resumeTimer={resumeTimer}
+                                />
+
+                                <Words
+                                    words={words}
+                                    currentWord={currentWord}
+                                    wordIsCorrect={wordIsCorrect}
+                                    wordIsNotCorrect={wordIsNotCorrect}
+                                />
                             </div>
                         ) : (
                             <div>
@@ -239,7 +236,7 @@ export const GuessTheWord = () => {
                         )}
                     </div>
                 )}
-            </div>
+            </main>
         </>
     );
 };
