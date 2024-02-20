@@ -223,6 +223,7 @@ export const GuessTheWord = () => {
                             </span>
                         </li>
                     ))}
+                    <li>Remaining words: {words.length}</li>
                 </ul>
             </div>
 
