@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Fullscreen } from "./Fullscreen";
+import { GameInfo } from "./GameInfo";
 
 export const GuessTheWord = () => {
     // Game
@@ -209,23 +210,12 @@ export const GuessTheWord = () => {
 
             {/*  */}
             <div>
-                <ul>
-                    <li>Turn: {currentTurn}</li>
-                    {teams.map((team, i) => (
-                        <li
-                            key={i}
-                            className={`${
-                                i == currentTeam ? "current-team" : ""
-                            }`}
-                        >
-                            <span>
-                                {team.name} (Points: {team.points}, Won turns:
-                                {team.wonTurns})
-                            </span>
-                        </li>
-                    ))}
-                    <li>Remaining words: {words.length}</li>
-                </ul>
+                <GameInfo
+                    currentTurn={currentTurn}
+                    teams={teams}
+                    remainingWords={words.length}
+                    currentTeam={currentTeam}
+                />
 
                 <Fullscreen />
             </div>
