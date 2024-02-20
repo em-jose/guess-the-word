@@ -11,5 +11,5 @@ html {
 }
 
 :not(:root):fullscreen::backdrop {
-    background: #fff;
+    background: #fffded;
 }
