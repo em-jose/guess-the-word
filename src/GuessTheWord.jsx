@@ -75,6 +75,7 @@ export const GuessTheWord = () => {
 
         setWords(updatedWords);
         setGuessedWords(updatedGuessedWords);
+        addPoint();
 
         if (!updatedWords.length) {
             stopGame();
@@ -111,8 +112,10 @@ export const GuessTheWord = () => {
     };
 
     // Teams
-    const [teams, setTeams] = useState(["Team 1", "Team 2"]);
-    const [currentTeam, setCurrentTeam] = useState(teams[0]);
+    const [teams, setTeams] = useState([
+        { name: "Team 1", points: 0, wonTurns: 0 },
+        { name: "Team 2", points: 0, wonTurns: 0 },
+    ]);
 
     const changeTeam = () => {
         let updatedTeams = [...teams];
@@ -121,59 +124,109 @@ export const GuessTheWord = () => {
         updatedTeams.push(nextTeam);
 
         setTeams(updatedTeams);
-        setCurrentTeam(updatedTeams[0]);
         stopGame();
+    };
+
+    const addPoint = () => {
+        let updatedTeams = [...teams];
+        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
+
+        setTeams(updatedTeams);
     };
 
     // Turn
     const totalTurns = 3;
     const [currentTurn, setCurrentTurn] = useState(1);
+    const currentTeam = 0;
+    const waitingTeam = 1;
 
     const nextTurn = () => {
         if (currentTurn == totalTurns) return false;
 
         stopGame();
+        setTurnWinner();
         changeTeam();
         resetWords();
         setCurrentTurn(currentTurn + 1);
+    };
+
+    const setTurnWinner = () => {
+        let winner = currentTeam;
+
+        if (teams[currentTeam].points < teams[waitingTeam].points) {
+            winner = waitingTeam;
+        }
+
+        let updatedTeams = [...teams];
+        updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
+
+        setTeams(updatedTeams);
     };
 
     return (
         <>
             <h1>Guess the Word - App</h1>
 
+            {/* Info */}
             <div>
-                {/* Turn */}
-                Turn: {currentTurn}
-                <hr />
-                {/* Team */}
-                {currentTeam}
-                <hr />
-                {/* Play */}
-                {JSON.stringify(isPlaying)}
-                <br />
-                <br />
-                <div>
-                    <button onClick={initGame}>Play!</button>
-                </div>
-                <hr />
-                {/* Timer */}
-                <h2>{timer}</h2>
-                <button onClick={stopTimer}>
-                    <span>Stop timer</span>
-                </button>
-                <button onClick={resumeTimer}>
-                    <span>Resume timer</span>
-                </button>
-                <hr />
-                {/* Words */}
-                <p>{words[currentWord]}</p>
-                <p>{JSON.stringify(words)}</p>
-                <p>{JSON.stringify(guessedWords)}</p>
-                {words.length && (
+                <ul>
+                    <li>Turn: {currentTurn}</li>
+                    <li>Current team: {teams[currentTeam].name}</li>
+                    <li>{JSON.stringify(teams)}</li>
+                    <li>Is playing: {JSON.stringify(isPlaying)}</li>
+                    <li>Timer: {timer}</li>
+                    <li>Current word: {words[currentWord]}</li>
+                    <li>Words: {JSON.stringify(words)}</li>
+                    <li>Guessed words: {JSON.stringify(guessedWords)}</li>
+                    <li>Remaining words: {words.length}</li>
+                </ul>
+            </div>
+
+            {/*  */}
+            <div>
+                <ul>
+                    <li>Turn: {currentTurn}</li>
+                    {teams.map((team, i) => (
+                        <li
+                            key={i}
+                            className={`${
+                                i == currentTeam ? "current-team" : ""
+                            }`}
+                        >
+                            <span>
+                                {team.name} (Points: {team.points})
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/*  */}
+            <div>
+                {isPlaying ? (
                     <div>
-                        <button onClick={wordIsCorrect}>Correct!</button>
-                        <button onClick={wordIsNotCorrect}>Incorrect</button>
+                        <h2>{timer}</h2>
+                        <button onClick={stopTimer}>
+                            <span>Stop timer</span>
+                        </button>
+                        <button onClick={resumeTimer}>
+                            <span>Resume timer</span>
+                        </button>
+                        <p>{words[currentWord]}</p>
+                        {words.length && (
+                            <div>
+                                <button onClick={wordIsCorrect}>
+                                    Correct!
+                                </button>
+                                <button onClick={wordIsNotCorrect}>
+                                    Incorrect
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div>
+                        <button onClick={initGame}>Play!</button>
                     </div>
                 )}
             </div>
