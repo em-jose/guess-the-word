@@ -27,7 +27,11 @@ html {
 
 .title {
     font-family: "Permanent Marker";
-    font-size: 3rem;
+    font-size: 2rem;
     color: #8ec7c9;
     text-align: center;
+}
+
+.text-marker {
+    font-family: "Permanent Marker";
 }

@@ -191,9 +191,9 @@ export const GuessTheWord = () => {
     };
 
     return (
-        <div className="p-8">
+        <div className="p-5">
             <header>
-                <h1 className="title">Guess the Word - App</h1>
+                <h1 className="title">Guess the Word!</h1>
                 <GameInfo
                     currentTurn={currentTurn}
                     teams={teams}
