@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-// import { Timer } from "./components/Timer";
-// import { Words } from "./components/Words";
+import { Fullscreen } from "./Fullscreen";
 
 export const GuessTheWord = () => {
     // Game
@@ -227,12 +226,8 @@ export const GuessTheWord = () => {
                     ))}
                     <li>Remaining words: {words.length}</li>
                 </ul>
-                <button onClick={() => document.body.requestFullscreen()}>
-                    Enter full screen
-                </button>
-                <button onClick={() => document.exitFullscreen()}>
-                    Exit full screen
-                </button>
+
+                <Fullscreen />
             </div>
 
             <hr />
