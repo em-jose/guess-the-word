@@ -4,6 +4,8 @@ import { GameInfo } from "./GameInfo";
 import { EndGame } from "./EndGame";
 import { Timer } from "./Timer";
 import { Words } from "./Words";
+import { PlayingTeam } from "./PlayingTeam";
+import { PlayButton } from "./PlayButton";
 
 export const GuessTheWord = () => {
     // Game
@@ -209,11 +211,7 @@ export const GuessTheWord = () => {
                     <div>
                         {isPlaying ? (
                             <div>
-                                <div className="flex justify-center items-center">
-                                    <span className="text-marker">
-                                        {teams[currentTeam].name}
-                                    </span>
-                                </div>
+                                <PlayingTeam teamName={teams[currentTeam].name} />
 
                                 <Timer
                                     timer={timer}
@@ -237,12 +235,8 @@ export const GuessTheWord = () => {
                                     remainingWords={words.length}
                                     currentTeam={currentTeam}
                                 />
-                                <button
-                                    className="bg-rose-600 hover:bg-rose-700 text-amber-50 font-bold py-2 px-4 rounded text-marker mt-5"
-                                    onClick={initGame}
-                                >
-                                    Play!
-                                </button>
+                                
+                                <PlayButton initGame={initGame} />
                             </div>
                         )}
                     </div>

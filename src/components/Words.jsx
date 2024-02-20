@@ -17,7 +17,7 @@ export const Words = ({
             {words.length && (
                 <div className="flex justify-center items-center mt-5">
                     <button
-                        class="bg-emerald-500 hover:bg-emerald-700 text-amber-50 font-bold py-2 px-4 rounded mr-3"
+                        className="bg-emerald-500 hover:bg-emerald-700 text-amber-50 font-bold py-2 px-4 rounded mr-3"
                         onClick={wordIsCorrect}
                     >
                         <FontAwesomeIcon icon={faCheck} />
