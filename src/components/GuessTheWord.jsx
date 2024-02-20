@@ -191,7 +191,7 @@ export const GuessTheWord = () => {
     };
 
     return (
-        <>
+        <div className="p-8">
             <header>
                 <h1>Guess the Word - App</h1>
                 <GameInfo
@@ -241,6 +241,6 @@ export const GuessTheWord = () => {
                     </div>
                 )}
             </main>
-        </>
+        </div>
     );
 };

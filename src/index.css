@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    background-color: #fffded;
+}
+
 .current-team {
     font-weight: 700;
 }
