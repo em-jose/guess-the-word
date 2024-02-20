@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Fullscreen } from "./Fullscreen";
 import { GameInfo } from "./GameInfo";
+import { EndGame } from "./EndGame";
 
 export const GuessTheWord = () => {
     // Game
@@ -225,12 +226,11 @@ export const GuessTheWord = () => {
             {/*  */}
             <div>
                 {ended ? (
-                    <div>
-                        <p>GAME ENDED</p>
-                        <p>Winner: {teams[winner].name}</p>
-                        <p>Winner points: {teams[winner].points}</p>
-                        <p>Winner won turns: {teams[winner].wonTurns}</p>
-                    </div>
+                    <EndGame
+                        winnerName={teams[winner].name}
+                        winnerPoints={teams[winner].points}
+                        winnerTurns={teams[winner].wonTurns}
+                    />
                 ) : (
                     <div>
                         {isPlaying ? (
