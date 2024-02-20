@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export const GuessTheWord = () => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);
+    const [ended, setEnded] = useState(false);
 
     const initGame = () => {
         setIsPlaying(true);
@@ -17,6 +18,11 @@ export const GuessTheWord = () => {
         setIsRunning(false);
         stopTimer();
         resetTimer();
+    };
+
+    const endGame = () => {
+        stopGame();
+        setEnded(true);
     };
 
     // Timer
@@ -62,7 +68,13 @@ export const GuessTheWord = () => {
 
     useEffect(() => {
         if (!words.length) {
-            nextTurn();
+            if (currentTurn == totalTurns) {
+                setTurnWinner();
+                setGameWinner();
+                endGame();
+            } else {
+                nextTurn();
+            }
         }
     }, [words]);
 
@@ -116,6 +128,9 @@ export const GuessTheWord = () => {
         { name: "Team 1", points: 0, wonTurns: 0 },
         { name: "Team 2", points: 0, wonTurns: 0 },
     ]);
+    const currentTeam = 0;
+    const waitingTeam = 1;
+    const [winner, setWinner] = useState(currentTeam);
 
     const changeTeam = () => {
         let updatedTeams = [...teams];
@@ -125,29 +140,7 @@ export const GuessTheWord = () => {
 
         setTeams(updatedTeams);
         stopGame();
-    };
-
-    const addPoint = () => {
-        let updatedTeams = [...teams];
-        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
-
-        setTeams(updatedTeams);
-    };
-
-    // Turn
-    const totalTurns = 3;
-    const [currentTurn, setCurrentTurn] = useState(1);
-    const currentTeam = 0;
-    const waitingTeam = 1;
-
-    const nextTurn = () => {
-        if (currentTurn == totalTurns) return false;
-
-        stopGame();
-        setTurnWinner();
-        changeTeam();
-        resetWords();
-        setCurrentTurn(currentTurn + 1);
+        wordIsNotCorrect();
     };
 
     const setTurnWinner = () => {
@@ -161,6 +154,37 @@ export const GuessTheWord = () => {
         updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
 
         setTeams(updatedTeams);
+    };
+
+    const setGameWinner = () => {
+        let winner = currentTeam;
+
+        if (teams[currentTeam].wonTurns < teams[waitingTeam].wonTurns) {
+            winner = waitingTeam;
+        }
+
+        setWinner(winner);
+    };
+
+    const addPoint = () => {
+        let updatedTeams = [...teams];
+        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
+
+        setTeams(updatedTeams);
+    };
+
+    // Turn
+    const totalTurns = 3;
+    const [currentTurn, setCurrentTurn] = useState(1);
+
+    const nextTurn = () => {
+        if (currentTurn == totalTurns) return false;
+
+        stopGame();
+        setTurnWinner();
+        changeTeam();
+        resetWords();
+        setCurrentTurn(currentTurn + 1);
     };
 
     return (
@@ -194,7 +218,8 @@ export const GuessTheWord = () => {
                             }`}
                         >
                             <span>
-                                {team.name} (Points: {team.points})
+                                {team.name} (Points: {team.points}, Won turns:
+                                {team.wonTurns})
                             </span>
                         </li>
                     ))}
@@ -203,30 +228,41 @@ export const GuessTheWord = () => {
 
             {/*  */}
             <div>
-                {isPlaying ? (
+                {ended ? (
                     <div>
-                        <h2>{timer}</h2>
-                        <button onClick={stopTimer}>
-                            <span>Stop timer</span>
-                        </button>
-                        <button onClick={resumeTimer}>
-                            <span>Resume timer</span>
-                        </button>
-                        <p>{words[currentWord]}</p>
-                        {words.length && (
-                            <div>
-                                <button onClick={wordIsCorrect}>
-                                    Correct!
-                                </button>
-                                <button onClick={wordIsNotCorrect}>
-                                    Incorrect
-                                </button>
-                            </div>
-                        )}
+                        <p>GAME ENDED</p>
+                        <p>Winner: {teams[winner].name}</p>
+                        <p>Winner points: {teams[winner].points}</p>
+                        <p>Winner won turns: {teams[winner].wonTurns}</p>
                     </div>
                 ) : (
                     <div>
-                        <button onClick={initGame}>Play!</button>
+                        {isPlaying ? (
+                            <div>
+                                <h2>{timer}</h2>
+                                <button onClick={stopTimer}>
+                                    <span>Stop timer</span>
+                                </button>
+                                <button onClick={resumeTimer}>
+                                    <span>Resume timer</span>
+                                </button>
+                                <p>{words[currentWord]}</p>
+                                {words.length && (
+                                    <div>
+                                        <button onClick={wordIsCorrect}>
+                                            Correct!
+                                        </button>
+                                        <button onClick={wordIsNotCorrect}>
+                                            Incorrect
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div>
+                                <button onClick={initGame}>Play!</button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
