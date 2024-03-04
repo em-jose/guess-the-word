@@ -6,6 +6,7 @@ import { Timer } from "./Timer";
 import { Words } from "./Words";
 import { PlayingTeam } from "./PlayingTeam";
 import { PlayButton } from "./PlayButton";
+import { useTimer } from "../hooks/useTimer";
 
 export const GuessTheWord = () => {
     // Game
@@ -14,13 +15,12 @@ export const GuessTheWord = () => {
 
     const initGame = () => {
         setIsPlaying(true);
-        setIsRunning(true);
+        toggleTimer(true);
     };
 
     const stopGame = () => {
         setIsPlaying(false);
-        setIsRunning(false);
-        setIsRunning(false);
+        toggleTimer(false);
         stopTimer();
         resetTimer();
     };
@@ -30,37 +30,65 @@ export const GuessTheWord = () => {
         setEnded(true);
     };
 
-    // Timer
-    const initialTimer = 45;
-    const [timer, setTimer] = useState(initialTimer);
-    const [isRunning, setIsRunning] = useState(false);
-    const [intervalID, setIntervalID] = useState(0);
+    // Teams
+    const [teams, setTeams] = useState([
+        { name: "Team 1", points: 0, wonTurns: 0 },
+        { name: "Team 2", points: 0, wonTurns: 0 },
+    ]);
+    const currentTeam = 0;
+    const waitingTeam = 1;
+    const [winner, setWinner] = useState(currentTeam);
 
-    useEffect(() => {
-        if (timer > 0 && isRunning) {
-            let interval = setTimeout(() => {
-                setTimer(timer - 1);
-            }, 1000);
+    const changeTeam = () => {
+        let updatedTeams = [...teams];
+        const nextTeam = updatedTeams.shift();
 
-            setIntervalID(interval);
-        } else if (timer == 0 && isRunning) {
-            changeTeam();
+        updatedTeams.push(nextTeam);
+
+        setTeams(updatedTeams);
+        stopGame();
+        wordIsNotCorrect();
+    };
+
+    const setTurnWinner = () => {
+        let winner = currentTeam;
+
+        if (teams[currentTeam].points < teams[waitingTeam].points) {
+            winner = waitingTeam;
         }
-    }, [timer, isRunning]);
 
-    const resumeTimer = () => {
-        setIsRunning(true);
+        let updatedTeams = [...teams];
+        updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
+
+        setTeams(updatedTeams);
     };
 
-    const stopTimer = () => {
-        clearInterval(intervalID);
-        setIsRunning(false);
+    const setGameWinner = () => {
+        let winner = currentTeam;
+
+        if (teams[currentTeam].wonTurns < teams[waitingTeam].wonTurns) {
+            winner = waitingTeam;
+        }
+
+        setWinner(winner);
     };
 
-    const resetTimer = () => {
-        clearInterval(intervalID);
-        setTimer(initialTimer);
+    const addPoint = () => {
+        let updatedTeams = [...teams];
+        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
+
+        setTeams(updatedTeams);
     };
+
+    // Timer
+    const {
+        timer,
+        isRunning,
+        resumeTimer,
+        stopTimer,
+        resetTimer,
+        toggleTimer,
+    } = useTimer(45, changeTeam);
 
     // Words
     const currentWord = 0;
@@ -128,56 +156,6 @@ export const GuessTheWord = () => {
         return words;
     };
 
-    // Teams
-    const [teams, setTeams] = useState([
-        { name: "Team 1", points: 0, wonTurns: 0 },
-        { name: "Team 2", points: 0, wonTurns: 0 },
-    ]);
-    const currentTeam = 0;
-    const waitingTeam = 1;
-    const [winner, setWinner] = useState(currentTeam);
-
-    const changeTeam = () => {
-        let updatedTeams = [...teams];
-        const nextTeam = updatedTeams.shift();
-
-        updatedTeams.push(nextTeam);
-
-        setTeams(updatedTeams);
-        stopGame();
-        wordIsNotCorrect();
-    };
-
-    const setTurnWinner = () => {
-        let winner = currentTeam;
-
-        if (teams[currentTeam].points < teams[waitingTeam].points) {
-            winner = waitingTeam;
-        }
-
-        let updatedTeams = [...teams];
-        updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
-
-        setTeams(updatedTeams);
-    };
-
-    const setGameWinner = () => {
-        let winner = currentTeam;
-
-        if (teams[currentTeam].wonTurns < teams[waitingTeam].wonTurns) {
-            winner = waitingTeam;
-        }
-
-        setWinner(winner);
-    };
-
-    const addPoint = () => {
-        let updatedTeams = [...teams];
-        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
-
-        setTeams(updatedTeams);
-    };
-
     // Turn
     const totalTurns = 3;
     const [currentTurn, setCurrentTurn] = useState(1);
@@ -211,7 +189,9 @@ export const GuessTheWord = () => {
                     <div>
                         {isPlaying ? (
                             <div>
-                                <PlayingTeam teamName={teams[currentTeam].name} />
+                                <PlayingTeam
+                                    teamName={teams[currentTeam].name}
+                                />
 
                                 <Timer
                                     timer={timer}
@@ -235,7 +215,7 @@ export const GuessTheWord = () => {
                                     remainingWords={words.length}
                                     currentTeam={currentTeam}
                                 />
-                                
+
                                 <PlayButton initGame={initGame} />
                             </div>
                         )}
