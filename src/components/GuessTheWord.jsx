@@ -10,6 +10,7 @@ import { useTimer } from "../hooks/useTimer";
 
 const CURRENT_TEAM = 0;
 const WAITING_TEAM = 1;
+const CURRENT_WORD = 0;
 
 export const GuessTheWord = () => {
     // Game
@@ -90,7 +91,6 @@ export const GuessTheWord = () => {
     } = useTimer(45, changeTeam);
 
     // Words
-    const currentWord = 0;
     const [words, setWords] = useState([
         "Silent Hill",
         "Dark Souls",
@@ -112,7 +112,7 @@ export const GuessTheWord = () => {
 
     const wordIsCorrect = () => {
         const updatedWords = [...words];
-        const guessedWord = updatedWords.splice(currentWord, 1)[0];
+        const guessedWord = updatedWords.splice(CURRENT_WORD, 1)[0];
         let updatedGuessedWords = [...guessedWords];
 
         updatedGuessedWords.push(guessedWord);
@@ -201,7 +201,7 @@ export const GuessTheWord = () => {
 
                                 <Words
                                     words={words}
-                                    currentWord={currentWord}
+                                    currentWord={CURRENT_WORD}
                                     wordIsCorrect={wordIsCorrect}
                                     wordIsNotCorrect={wordIsNotCorrect}
                                 />
