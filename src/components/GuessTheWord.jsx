@@ -8,6 +8,9 @@ import { PlayingTeam } from "./PlayingTeam";
 import { PlayButton } from "./PlayButton";
 import { useTimer } from "../hooks/useTimer";
 
+const CURRENT_TEAM = 0;
+const WAITING_TEAM = 1;
+
 export const GuessTheWord = () => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);
@@ -35,9 +38,7 @@ export const GuessTheWord = () => {
         { name: "Team 1", points: 0, wonTurns: 0 },
         { name: "Team 2", points: 0, wonTurns: 0 },
     ]);
-    const currentTeam = 0;
-    const waitingTeam = 1;
-    const [winner, setWinner] = useState(currentTeam);
+    const [winner, setWinner] = useState(CURRENT_TEAM);
 
     const changeTeam = () => {
         let updatedTeams = [...teams];
@@ -51,10 +52,10 @@ export const GuessTheWord = () => {
     };
 
     const setTurnWinner = () => {
-        let winner = currentTeam;
+        let winner = CURRENT_TEAM;
 
-        if (teams[currentTeam].points < teams[waitingTeam].points) {
-            winner = waitingTeam;
+        if (teams[CURRENT_TEAM].points < teams[WAITING_TEAM].points) {
+            winner = WAITING_TEAM;
         }
 
         let updatedTeams = [...teams];
@@ -64,10 +65,10 @@ export const GuessTheWord = () => {
     };
 
     const setGameWinner = () => {
-        let winner = currentTeam;
+        let winner = CURRENT_TEAM;
 
-        if (teams[currentTeam].wonTurns < teams[waitingTeam].wonTurns) {
-            winner = waitingTeam;
+        if (teams[CURRENT_TEAM].wonTurns < teams[WAITING_TEAM].wonTurns) {
+            winner = WAITING_TEAM;
         }
 
         setWinner(winner);
@@ -75,7 +76,8 @@ export const GuessTheWord = () => {
 
     const addPoint = () => {
         let updatedTeams = [...teams];
-        updatedTeams[currentTeam].points = updatedTeams[currentTeam].points + 1;
+        updatedTeams[CURRENT_TEAM].points =
+            updatedTeams[CURRENT_TEAM].points + 1;
 
         setTeams(updatedTeams);
     };
@@ -190,7 +192,7 @@ export const GuessTheWord = () => {
                         {isPlaying ? (
                             <div>
                                 <PlayingTeam
-                                    teamName={teams[currentTeam].name}
+                                    teamName={teams[CURRENT_TEAM].name}
                                 />
 
                                 <Timer
@@ -213,7 +215,7 @@ export const GuessTheWord = () => {
                                     currentTurn={currentTurn}
                                     teams={teams}
                                     remainingWords={words.length}
-                                    currentTeam={currentTeam}
+                                    currentTeam={CURRENT_TEAM}
                                 />
 
                                 <PlayButton initGame={initGame} />
