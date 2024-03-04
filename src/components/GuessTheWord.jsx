@@ -33,7 +33,7 @@ export const GuessTheWord = () => {
             <header>
                 <h1 className="title">Guess the Word!</h1>
 
-                {/* <Fullscreen /> */}
+                <Fullscreen />
             </header>
 
             <main>
