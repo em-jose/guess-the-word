@@ -1,18 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
 export const Fullscreen = () => {
-    const [fullscreen, setFullscreen] = useState(false);
-
     const handleFullScreen = () => {
         if (fullscreen) {
             document.exitFullscreen();
         } else {
             document.body.requestFullscreen();
         }
-
-        setFullscreen(!fullscreen);
     };
 
     return (
