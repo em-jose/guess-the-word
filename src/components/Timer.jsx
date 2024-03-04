@@ -1,33 +1,31 @@
-import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock, faStop, faPlay } from "@fortawesome/free-solid-svg-icons";
 
-export const Timer = ({ initialTimer }) => {
-    const [timer, setTimer] = useState(initialTimer);
-    const [isRunning, setIsRunning] = useState(false);
-
-    useEffect(() => {
-        if (timer > 0 && isRunning) {
-            setTimeout(() => {
-                setTimer(timer - 1);
-            }, 1000);
-        }
-    }, [timer, isRunning]);
-
-    const toggleTimer = (runTimer) => {
-        setIsRunning(runTimer);
-    };
-
-    const resetTimer = () => {
-        setTimer(initialTimer);
-    };
-
+export const Timer = ({ timer, isRunning, stopTimer, resumeTimer }) => {
     return (
-        <>
-            <h1>{timer}</h1>
-            <button onClick={() => toggleTimer(!isRunning)}>
-                {isRunning ? <span>Stop timer</span> : <span>Start timer</span>}
-            </button>
-
-            <button onClick={resetTimer}>Reset timer</button>
-        </>
+        <div className="mt-1">
+            <div className="flex justify-center items-center">
+                <span className="text-marker text-rose-600 text-5xl">
+                    {timer}
+                </span>
+            </div>
+            <div className="flex justify-center items-center mt-2">
+                {isRunning ? (
+                    <button
+                        className="bg-transparent text-black font-semibol py-2 px-4 border border-black rounded"
+                        onClick={stopTimer}
+                    >
+                        <FontAwesomeIcon icon={faStop} />
+                    </button>
+                ) : (
+                    <button
+                        className="bg-transparent text-black font-semibold py-2 px-4 border border-black rounded"
+                        onClick={resumeTimer}
+                    >
+                        <FontAwesomeIcon icon={faPlay} />
+                    </button>
+                )}
+            </div>
+        </div>
     );
 };
