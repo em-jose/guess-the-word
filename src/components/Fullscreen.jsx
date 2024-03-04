@@ -3,7 +3,7 @@ import { faExpand } from "@fortawesome/free-solid-svg-icons";
 
 export const Fullscreen = () => {
     const handleFullScreen = () => {
-        if (fullscreen) {
+        if (document.fullscreenElement) {
             document.exitFullscreen();
         } else {
             document.body.requestFullscreen();

@@ -10,9 +10,7 @@ export const Words = ({
     return (
         <div className="mt-5">
             <div className="flex justify-center items-center">
-                <p className="text-marker font-bold text-6xl">
-                    {words[currentWord]}
-                </p>
+                <p className="text-marker font-bold text-6xl">{currentWord}</p>
             </div>
             {words.length && (
                 <div className="flex justify-center items-center mt-5">
