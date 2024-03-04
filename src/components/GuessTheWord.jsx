@@ -41,12 +41,9 @@ export const GuessTheWord = () => {
     const [winner, setWinner] = useState(CURRENT_TEAM);
 
     const changeTeam = () => {
-        let updatedTeams = [...teams];
-        const nextTeam = updatedTeams.shift();
+        const [currentTeam, waitingTeam] = teams;
 
-        updatedTeams.push(nextTeam);
-
-        setTeams(updatedTeams);
+        setTeams([waitingTeam, currentTeam]);
         stopGame();
         wordIsNotCorrect();
     };
