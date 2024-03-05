@@ -11,7 +11,7 @@ export const Fullscreen = () => {
     };
 
     return (
-        <div className="my-5">
+        <div className="fixed bottom-4 right-4">
             <button
                 className="bg-transparent hover:bg-black text-black font-semibold hover:text-white py-1 px-2 border border-black hover:border-transparent rounded mr-3"
                 onClick={handleFullScreen}

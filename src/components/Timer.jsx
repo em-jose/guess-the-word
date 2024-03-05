@@ -12,7 +12,7 @@ export const Timer = ({ timer, isRunning, stopTimer, resumeTimer }) => {
             <div className="flex justify-center items-center mt-2">
                 {isRunning ? (
                     <button
-                        className="bg-transparent text-black font-semibol py-2 px-4 border border-black rounded"
+                        className="bg-transparent text-black font-semibold py-2 px-4 border border-black rounded"
                         onClick={stopTimer}
                     >
                         <FontAwesomeIcon icon={faStop} />
