@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTimer } from "./useTimer";
+import { wordsDeck } from "../utils/wordsDeck";
 
 export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     // Game
@@ -80,11 +81,12 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     } = useTimer(45, changeTeam);
 
     // Words
-    const [words, setWords] = useState([
-        "Silent Hill",
-        "Dark Souls",
-        "Half Life",
-    ]);
+    const setInitialWords = wordsList => {
+        console.log(Math.floor(Math.random() * wordsList.length));
+        return wordsList[Math.floor(Math.random() * wordsList.length)];
+    };
+
+    const [words, setWords] = useState(setInitialWords(wordsDeck));
     const [guessedWords, setGuessedWords] = useState([]);
 
     useEffect(() => {
