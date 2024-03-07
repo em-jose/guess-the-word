@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTimer } from "./useTimer";
+import { wordsDeck } from "../utils/wordsDeck";
 
 export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     // Game
@@ -28,7 +29,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         { name: "Team 1", points: 0, wonTurns: 0 },
         { name: "Team 2", points: 0, wonTurns: 0 },
     ]);
-    const [winner, setWinner] = useState(CURRENT_TEAM);
+    const [winner, setWinner] = useState(null);
 
     const changeTeam = () => {
         const [currentTeam, waitingTeam] = teams;
@@ -45,7 +46,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
             winner = WAITING_TEAM;
         }
 
-        let updatedTeams = [...teams];
+        const updatedTeams = [...teams];
         updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
 
         setTeams(updatedTeams);
@@ -62,9 +63,11 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     const addPoint = () => {
-        let updatedTeams = [...teams];
-        updatedTeams[CURRENT_TEAM].points =
-            updatedTeams[CURRENT_TEAM].points + 1;
+        const updatedTeams = teams.map((team, i) => {
+            if (i === CURRENT_TEAM) team.points++;
+
+            return team;
+        });
 
         setTeams(updatedTeams);
     };
@@ -80,16 +83,18 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     } = useTimer(45, changeTeam);
 
     // Words
-    const [words, setWords] = useState([
-        "Silent Hill",
-        "Dark Souls",
-        "Half Life",
-    ]);
+    const setInitialWords = wordsList => {
+        return wordsList[Math.floor(Math.random() * wordsList.length)];
+    };
+
+    const [words, setWords] = useState(setInitialWords(wordsDeck));
     const [guessedWords, setGuessedWords] = useState([]);
 
     useEffect(() => {
+        if (isPlaying && !isRunning && timer !== 0) resumeTimer();
+
         if (!words.length) {
-            if (currentTurn == totalTurns) {
+            if (currentTurn === totalTurns) {
                 setTurnWinner();
                 setGameWinner();
                 endGame();
@@ -102,7 +107,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const wordIsCorrect = () => {
         const updatedWords = [...words];
         const guessedWord = updatedWords.splice(CURRENT_WORD, 1)[0];
-        let updatedGuessedWords = [...guessedWords];
+        const updatedGuessedWords = [...guessedWords];
 
         updatedGuessedWords.push(guessedWord);
 
@@ -119,7 +124,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const wordIsNotCorrect = () => {
         if (!words.length) return false;
 
-        let updatedWords = [...words];
+        const updatedWords = [...words];
         const incorrectWord = updatedWords.shift();
 
         updatedWords.push(incorrectWord);
@@ -128,14 +133,14 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     const resetWords = () => {
-        let updatedGuessedWords = [...guessedWords];
+        const updatedGuessedWords = [...guessedWords];
         const shuffledWords = shuffleWords(updatedGuessedWords);
 
         setWords(shuffledWords);
         setGuessedWords([]);
     };
 
-    const shuffleWords = (words) => {
+    const shuffleWords = words => {
         for (let i = words.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [words[i], words[j]] = [words[j], words[i]];
@@ -149,7 +154,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const [currentTurn, setCurrentTurn] = useState(1);
 
     const nextTurn = () => {
-        if (currentTurn == totalTurns) return false;
+        if (currentTurn === totalTurns) return false;
 
         stopGame();
         setTurnWinner();
