@@ -91,6 +91,8 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const [guessedWords, setGuessedWords] = useState([]);
 
     useEffect(() => {
+        if (isPlaying && !isRunning && timer !== 0) resumeTimer();
+
         if (!words.length) {
             if (currentTurn === totalTurns) {
                 setTurnWinner();
