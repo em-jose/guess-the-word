@@ -82,7 +82,6 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
 
     // Words
     const setInitialWords = wordsList => {
-        console.log(Math.floor(Math.random() * wordsList.length));
         return wordsList[Math.floor(Math.random() * wordsList.length)];
     };
 
