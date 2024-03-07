@@ -63,9 +63,11 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     const addPoint = () => {
-        const updatedTeams = [...teams];
-        updatedTeams[CURRENT_TEAM].points =
-            updatedTeams[CURRENT_TEAM].points + 1;
+        const updatedTeams = teams.map((team, i) => {
+            if (i === CURRENT_TEAM) team.points++;
+
+            return team;
+        });
 
         setTeams(updatedTeams);
     };
