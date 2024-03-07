@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 
 export const GameInfo = ({
     currentRound,
-    currentTeam: currentTeamName,
+    currentTeamName,
     teams,
     remainingWords,
 }) => {

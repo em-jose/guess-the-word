@@ -71,7 +71,7 @@ export const GuessTheWord = () => {
                                     currentRound={currentRound}
                                     teams={teams}
                                     remainingWords={words.length}
-                                    currentTeam={teams[CURRENT_TEAM].name}
+                                    currentTeamName={teams[CURRENT_TEAM].name}
                                 />
 
                                 <PlayButton initGame={initGame} />
