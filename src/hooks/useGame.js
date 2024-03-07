@@ -46,7 +46,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
             winner = WAITING_TEAM;
         }
 
-        let updatedTeams = [...teams];
+        const updatedTeams = [...teams];
         updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
 
         setTeams(updatedTeams);
@@ -63,7 +63,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     const addPoint = () => {
-        let updatedTeams = [...teams];
+        const updatedTeams = [...teams];
         updatedTeams[CURRENT_TEAM].points =
             updatedTeams[CURRENT_TEAM].points + 1;
 
@@ -103,7 +103,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const wordIsCorrect = () => {
         const updatedWords = [...words];
         const guessedWord = updatedWords.splice(CURRENT_WORD, 1)[0];
-        let updatedGuessedWords = [...guessedWords];
+        const updatedGuessedWords = [...guessedWords];
 
         updatedGuessedWords.push(guessedWord);
 
@@ -120,7 +120,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const wordIsNotCorrect = () => {
         if (!words.length) return false;
 
-        let updatedWords = [...words];
+        const updatedWords = [...words];
         const incorrectWord = updatedWords.shift();
 
         updatedWords.push(incorrectWord);
@@ -129,7 +129,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     const resetWords = () => {
-        let updatedGuessedWords = [...guessedWords];
+        const updatedGuessedWords = [...guessedWords];
         const shuffledWords = shuffleWords(updatedGuessedWords);
 
         setWords(shuffledWords);
