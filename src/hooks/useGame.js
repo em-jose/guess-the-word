@@ -89,7 +89,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
 
     useEffect(() => {
         if (!words.length) {
-            if (currentTurn == totalTurns) {
+            if (currentTurn === totalTurns) {
                 setTurnWinner();
                 setGameWinner();
                 endGame();
@@ -135,7 +135,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         setGuessedWords([]);
     };
 
-    const shuffleWords = (words) => {
+    const shuffleWords = words => {
         for (let i = words.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [words[i], words[j]] = [words[j], words[i]];
@@ -149,7 +149,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const [currentTurn, setCurrentTurn] = useState(1);
 
     const nextTurn = () => {
-        if (currentTurn == totalTurns) return false;
+        if (currentTurn === totalTurns) return false;
 
         stopGame();
         setTurnWinner();
