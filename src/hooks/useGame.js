@@ -26,8 +26,8 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
 
     // Teams
     const [teams, setTeams] = useState([
-        { name: "Team 1", points: 0, wonTurns: 0 },
-        { name: "Team 2", points: 0, wonTurns: 0 },
+        { name: "Team 1", points: 0, wonRounds: 0 },
+        { name: "Team 2", points: 0, wonRounds: 0 },
     ]);
     const [winner, setWinner] = useState(null);
 
@@ -39,7 +39,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         wordIsNotCorrect();
     };
 
-    const setTurnWinner = () => {
+    const setRoundWinner = () => {
         let winner = CURRENT_TEAM;
 
         if (teams[CURRENT_TEAM].points < teams[WAITING_TEAM].points) {
@@ -47,7 +47,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         }
 
         const updatedTeams = [...teams];
-        updatedTeams[winner].wonTurns = updatedTeams[winner].wonTurns + 1;
+        updatedTeams[winner].wonRounds = updatedTeams[winner].wonRounds + 1;
 
         setTeams(updatedTeams);
     };
@@ -55,7 +55,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     const setGameWinner = () => {
         let winner = CURRENT_TEAM;
 
-        if (teams[CURRENT_TEAM].wonTurns < teams[WAITING_TEAM].wonTurns) {
+        if (teams[CURRENT_TEAM].wonRounds < teams[WAITING_TEAM].wonRounds) {
             winner = WAITING_TEAM;
         }
 
@@ -94,12 +94,12 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         if (isPlaying && !isRunning && timer !== 0) resumeTimer();
 
         if (!words.length) {
-            if (currentTurn === totalTurns) {
-                setTurnWinner();
+            if (currentRound === totalRounds) {
+                setRoundWinner();
                 setGameWinner();
                 endGame();
             } else {
-                nextTurn();
+                nextRound();
             }
         }
     }, [words]);
@@ -149,18 +149,18 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         return words;
     };
 
-    // Turn
-    const totalTurns = 3;
-    const [currentTurn, setCurrentTurn] = useState(1);
+    // Rounds
+    const totalRounds = 3;
+    const [currentRound, setCurrentRound] = useState(1);
 
-    const nextTurn = () => {
-        if (currentTurn === totalTurns) return false;
+    const nextRound = () => {
+        if (currentRound === totalRounds) return false;
 
         stopGame();
-        setTurnWinner();
+        setRoundWinner();
         changeTeam();
         resetWords();
-        setCurrentTurn(currentTurn + 1);
+        setCurrentRound(currentRound + 1);
     };
 
     return {
@@ -176,6 +176,6 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         words,
         wordIsCorrect,
         wordIsNotCorrect,
-        currentTurn,
+        currentRound,
     };
 };

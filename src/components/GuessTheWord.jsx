@@ -25,7 +25,7 @@ export const GuessTheWord = () => {
         words,
         wordIsCorrect,
         wordIsNotCorrect,
-        currentTurn,
+        currentRound,
     } = useGame(CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD);
 
     return (
@@ -41,7 +41,7 @@ export const GuessTheWord = () => {
                     <EndGame
                         winnerName={teams[winner].name}
                         winnerPoints={teams[winner].points}
-                        winnerTurns={teams[winner].wonTurns}
+                        winnerRounds={teams[winner].wonRounds}
                     />
                 ) : (
                     <div>
@@ -68,7 +68,7 @@ export const GuessTheWord = () => {
                         ) : (
                             <div className="flex justify-center items-center flex-col">
                                 <GameInfo
-                                    currentTurn={currentTurn}
+                                    currentRound={currentRound}
                                     teams={teams}
                                     remainingWords={words.length}
                                     currentTeam={teams[CURRENT_TEAM].name}
