@@ -29,7 +29,7 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
         { name: "Team 1", points: 0, wonTurns: 0 },
         { name: "Team 2", points: 0, wonTurns: 0 },
     ]);
-    const [winner, setWinner] = useState(CURRENT_TEAM);
+    const [winner, setWinner] = useState(null);
 
     const changeTeam = () => {
         const [currentTeam, waitingTeam] = teams;
