@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTimer } from "./useTimer";
-import { wordsDeck } from "../utils/wordsDeck";
+import { wordsDeck } from "../data/wordsDeck";
 
 export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     // Game
