@@ -1,11 +1,11 @@
-import { Fullscreen } from "./Fullscreen";
-import { GameInfo } from "./GameInfo";
-import { EndGame } from "./EndGame";
-import { Timer } from "./Timer";
-import { Words } from "./Words";
-import { PlayingTeam } from "./PlayingTeam";
-import { PlayButton } from "./PlayButton";
-import { useGame } from "../hooks/useGame";
+import { Fullscreen } from "@components/Fullscreen";
+import { GameInfo } from "@components/GameInfo";
+import { EndGame } from "@components/EndGame";
+import { Timer } from "@components/Timer";
+import { Words } from "@components/Words";
+import { PlayingTeam } from "@components/PlayingTeam";
+import { PlayButton } from "@components/PlayButton";
+import { useGame } from "@/hooks/useGame";
 
 const CURRENT_TEAM = 0;
 const WAITING_TEAM = 1;
