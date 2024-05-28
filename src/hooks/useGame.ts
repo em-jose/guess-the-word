@@ -36,7 +36,6 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
 
         setTeams([waitingTeam, currentTeam]);
         stopGame();
-        wordIsNotCorrect();
     };
 
     const setRoundWinner = () => {
