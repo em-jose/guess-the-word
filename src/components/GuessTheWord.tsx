@@ -12,7 +12,6 @@ const CURRENT_TEAM: number = 0;
 const WAITING_TEAM: number = 1;
 const CURRENT_WORD: number = 0;
 const TOTAL_TIME: number = 45;
-const TOTAL_ROUNDS: number = 3;
 
 export const GuessTheWord = () => {
     const {
@@ -29,13 +28,7 @@ export const GuessTheWord = () => {
         wordIsCorrect,
         wordIsNotCorrect,
         currentRound,
-    } = useGame(
-        CURRENT_TEAM,
-        WAITING_TEAM,
-        CURRENT_WORD,
-        TOTAL_TIME,
-        TOTAL_ROUNDS
-    );
+    } = useGame(CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD, TOTAL_TIME);
 
     return (
         <div className="p-5 bg-amber-50">

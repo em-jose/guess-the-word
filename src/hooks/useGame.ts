@@ -10,8 +10,7 @@ export const useGame = (
     CURRENT_TEAM: number,
     WAITING_TEAM: number,
     CURRENT_WORD: number,
-    TOTAL_TIME: number,
-    TOTAL_ROUNDS: number
+    TOTAL_TIME: number
 ) => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);
@@ -95,7 +94,7 @@ export const useGame = (
         if (isPlaying && !isRunning && timer !== 0) resumeTimer();
 
         if (!words.length) {
-            if (currentRound === TOTAL_ROUNDS) {
+            if (currentRound.nextRound === ENDGAME_ID) {
                 setRoundWinner();
                 setGameWinner();
                 endGame();
