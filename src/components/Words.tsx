@@ -9,7 +9,7 @@ export const Words = ({
 }) => {
     return (
         <div className="mt-5">
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center text-center">
                 <p className="text-marker font-bold text-6xl">{currentWord}</p>
             </div>
             {words.length && (
