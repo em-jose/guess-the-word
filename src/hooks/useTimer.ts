@@ -17,10 +17,6 @@ export const useTimer = (initialTimer = 45, changeTeam) => {
         }
     }, [timer, isRunning]);
 
-    const toggleTimer = (runTimer) => {
-        setIsRunning(runTimer);
-    };
-
     const resumeTimer = () => {
         setIsRunning(true);
     };
@@ -41,6 +37,5 @@ export const useTimer = (initialTimer = 45, changeTeam) => {
         resumeTimer,
         stopTimer,
         resetTimer,
-        toggleTimer,
     };
 };

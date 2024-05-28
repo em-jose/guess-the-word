@@ -9,12 +9,11 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
 
     const initGame = () => {
         setIsPlaying(true);
-        toggleTimer(true);
+        resumeTimer();
     };
 
     const stopGame = () => {
         setIsPlaying(false);
-        toggleTimer(false);
         stopTimer();
         resetTimer();
     };
@@ -73,14 +72,10 @@ export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
     };
 
     // Timer
-    const {
-        timer,
-        isRunning,
-        resumeTimer,
-        stopTimer,
-        resetTimer,
-        toggleTimer,
-    } = useTimer(45, changeTeam);
+    const { timer, isRunning, resumeTimer, stopTimer, resetTimer } = useTimer(
+        45,
+        changeTeam
+    );
 
     // Words
     const setInitialWords = wordsList => {
