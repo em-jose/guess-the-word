@@ -12,7 +12,7 @@ export const GameInfo = ({
                 <li className="font-bold text-marker flex justify-center items-center">
                     <span className="text-xl uppercase mr-1">Round</span>
                     <span className="text-rose-600 text-4xl">
-                        {currentRound}
+                        {currentRound.name}
                     </span>
                 </li>
                 <li className="flex justify-center items-center">

@@ -5,6 +5,7 @@ import { Timer } from "@components/Timer";
 import { Words } from "@components/Words";
 import { PlayingTeam } from "@components/PlayingTeam";
 import { PlayButton } from "@components/PlayButton";
+
 import { useGame } from "@/hooks/useGame";
 
 const CURRENT_TEAM = 0;

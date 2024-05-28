@@ -1,18 +1,20 @@
 import { RED_TEAM_ID } from "@/data/teams";
 import { BLUE_TEAM_ID } from "@/data/teams";
 
-export const ROUND_1_ID = "round1";
-export const ROUND_2_ID = "round2";
-export const ROUND_3_ID = "round3";
+export const ROUND_1_ID: string = "round1";
+export const ROUND_2_ID: string = "round2";
+export const ROUND_3_ID: string = "round3";
+export const ENDGAME_ID: string = "end";
 
 const points = {
     [RED_TEAM_ID]: 0,
     [BLUE_TEAM_ID]: 0,
 };
 
-export const gameRounds = [
-    {
+export const gameRounds = {
+    [ROUND_1_ID]: {
         id: ROUND_1_ID,
+        name: "1",
         playingTeam: null,
         rules: [
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -23,8 +25,9 @@ export const gameRounds = [
         canSkipWord: false,
         nextRound: ROUND_2_ID,
     },
-    {
+    [ROUND_2_ID]: {
         id: ROUND_2_ID,
+        name: "2",
         playingTeam: null,
         rules: [
             "Tempor incididunt ut labore et dolore magna aliqua",
@@ -34,8 +37,9 @@ export const gameRounds = [
         canSkipWord: true,
         nextRound: ROUND_3_ID,
     },
-    {
+    [ROUND_3_ID]: {
         id: ROUND_3_ID,
+        name: "3",
         playingTeam: null,
         rules: [
             "Do eiusmod tempor incididunt",
@@ -43,6 +47,6 @@ export const gameRounds = [
         ],
         points: points,
         canSkipWord: true,
-        nextRound: null,
+        nextRound: ENDGAME_ID,
     },
-];
+};

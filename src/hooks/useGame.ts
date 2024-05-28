@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { useTimer } from "./useTimer";
-import { wordsDeck } from "../data/wordsDeck";
+
+import { useTimer } from "@/hooks/useTimer";
+
+import { gameRounds, ROUND_1_ID, ENDGAME_ID } from "@/data/rounds";
+import { wordsDeck } from "@/data/wordsDeck";
 import { gameTeams } from "@/data/teams";
 
 export const useGame = (
@@ -148,16 +151,16 @@ export const useGame = (
     };
 
     // Rounds
-    const [currentRound, setCurrentRound] = useState(1);
+    const [currentRound, setCurrentRound] = useState(gameRounds[ROUND_1_ID]);
 
     const nextRound = () => {
-        if (currentRound === TOTAL_ROUNDS) return false;
+        if (currentRound.nextRound === ENDGAME_ID) endGame();
 
         stopGame();
         setRoundWinner();
         changeTeam();
         resetWords();
-        setCurrentRound(currentRound + 1);
+        setCurrentRound(gameRounds[currentRound.nextRound]);
     };
 
     return {
