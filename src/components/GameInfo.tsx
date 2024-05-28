@@ -19,6 +19,9 @@ export const GameInfo = ({
                     <span className="mr-1">Remaining words</span>
                     <span className="text-rose-600">{remainingWords}</span>
                 </li>
+            </ul>
+
+            <ul>
                 {teams.map(team => (
                     <li
                         key={team.name}
@@ -32,6 +35,12 @@ export const GameInfo = ({
                             {team.wonRounds})
                         </span>
                     </li>
+                ))}
+            </ul>
+
+            <ul className="list-disc max-w-48">
+                {currentRound.rules.map((rule: string, i: number) => (
+                    <li key={i}>{rule}</li>
                 ))}
             </ul>
         </div>
