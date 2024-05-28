@@ -31,8 +31,7 @@ export const GameInfo = ({
                         )}
                     >
                         <span className="">
-                            {team.name} (Points: {team.points}, Won rounds:
-                            {team.wonRounds})
+                            {team.name} (Points: {team.points})
                         </span>
                     </li>
                 ))}

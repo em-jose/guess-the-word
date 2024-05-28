@@ -15,7 +15,6 @@ export const gameRounds = {
     [ROUND_1_ID]: {
         id: ROUND_1_ID,
         name: "1",
-        playingTeam: null,
         rules: [
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "Consectetur adipisicing elit",
@@ -28,7 +27,6 @@ export const gameRounds = {
     [ROUND_2_ID]: {
         id: ROUND_2_ID,
         name: "2",
-        playingTeam: null,
         rules: [
             "Tempor incididunt ut labore et dolore magna aliqua",
             "Lorem ipsum dolor",
@@ -40,7 +38,6 @@ export const gameRounds = {
     [ROUND_3_ID]: {
         id: ROUND_3_ID,
         name: "3",
-        playingTeam: null,
         rules: [
             "Do eiusmod tempor incididunt",
             "Dolor sit amet, consectetur adipisicing elit",

@@ -8,7 +8,6 @@ import { gameTeams } from "@/data/teams";
 
 export const useGame = (
     CURRENT_TEAM: number,
-    WAITING_TEAM: number,
     CURRENT_WORD: number,
     TOTAL_TIME: number
 ) => {
@@ -43,27 +42,8 @@ export const useGame = (
         stopGame();
     };
 
-    const setRoundWinner = () => {
-        let winner = CURRENT_TEAM;
-
-        if (teams[CURRENT_TEAM].points < teams[WAITING_TEAM].points) {
-            winner = WAITING_TEAM;
-        }
-
-        const updatedTeams = [...teams];
-        updatedTeams[winner].wonRounds = updatedTeams[winner].wonRounds + 1;
-
-        setTeams(updatedTeams);
-    };
-
     const setGameWinner = () => {
-        let winner = CURRENT_TEAM;
-
-        if (teams[CURRENT_TEAM].wonRounds < teams[WAITING_TEAM].wonRounds) {
-            winner = WAITING_TEAM;
-        }
-
-        setWinner(winner);
+        // @TODO: Implement
     };
 
     const addPoint = () => {
@@ -95,7 +75,6 @@ export const useGame = (
 
         if (!words.length) {
             if (currentRound.nextRound === ENDGAME_ID) {
-                setRoundWinner();
                 setGameWinner();
                 endGame();
             } else {
@@ -156,7 +135,6 @@ export const useGame = (
         if (currentRound.nextRound === ENDGAME_ID) endGame();
 
         stopGame();
-        setRoundWinner();
         changeTeam();
         resetWords();
         setCurrentRound(gameRounds[currentRound.nextRound]);
