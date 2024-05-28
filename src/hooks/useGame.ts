@@ -7,11 +7,11 @@ import { wordsDeck } from "@/data/wordsDeck";
 import { gameTeams } from "@/data/teams";
 
 export const useGame = (
-    CURRENT_TEAM,
-    WAITING_TEAM,
-    CURRENT_WORD,
-    TOTAL_TIME,
-    TOTAL_ROUNDS
+    CURRENT_TEAM: number,
+    WAITING_TEAM: number,
+    CURRENT_WORD: number,
+    TOTAL_TIME: number,
+    TOTAL_ROUNDS: number
 ) => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);

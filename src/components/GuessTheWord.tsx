@@ -8,11 +8,11 @@ import { PlayButton } from "@components/PlayButton";
 
 import { useGame } from "@/hooks/useGame";
 
-const CURRENT_TEAM = 0;
-const WAITING_TEAM = 1;
-const CURRENT_WORD = 0;
-const TOTAL_TIME = 45;
-const TOTAL_ROUNDS = 3;
+const CURRENT_TEAM: number = 0;
+const WAITING_TEAM: number = 1;
+const CURRENT_WORD: number = 0;
+const TOTAL_TIME: number = 45;
+const TOTAL_ROUNDS: number = 3;
 
 export const GuessTheWord = () => {
     const {
