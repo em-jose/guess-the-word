@@ -3,10 +3,13 @@ import { useTimer } from "./useTimer";
 import { wordsDeck } from "../data/wordsDeck";
 import { gameTeams } from "@/data/teams";
 
-const TOTAL_TIME = 45;
-const TOTAL_ROUNDS = 3;
-
-export const useGame = (CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD) => {
+export const useGame = (
+    CURRENT_TEAM,
+    WAITING_TEAM,
+    CURRENT_WORD,
+    TOTAL_TIME,
+    TOTAL_ROUNDS
+) => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);
     const [ended, setEnded] = useState(false);

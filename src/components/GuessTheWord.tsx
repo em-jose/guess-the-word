@@ -10,6 +10,8 @@ import { useGame } from "@/hooks/useGame";
 const CURRENT_TEAM = 0;
 const WAITING_TEAM = 1;
 const CURRENT_WORD = 0;
+const TOTAL_TIME = 45;
+const TOTAL_ROUNDS = 3;
 
 export const GuessTheWord = () => {
     const {
@@ -26,7 +28,13 @@ export const GuessTheWord = () => {
         wordIsCorrect,
         wordIsNotCorrect,
         currentRound,
-    } = useGame(CURRENT_TEAM, WAITING_TEAM, CURRENT_WORD);
+    } = useGame(
+        CURRENT_TEAM,
+        WAITING_TEAM,
+        CURRENT_WORD,
+        TOTAL_TIME,
+        TOTAL_ROUNDS
+    );
 
     return (
         <div className="p-5 bg-amber-50">
