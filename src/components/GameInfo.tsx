@@ -2,7 +2,7 @@ import { twMerge } from "tailwind-merge";
 
 export const GameInfo = ({
     currentRound,
-    currentTeamName,
+    playingTeam,
     teams,
     remainingWords,
 }) => {
@@ -27,7 +27,7 @@ export const GameInfo = ({
                         key={team.name}
                         className={twMerge(
                             "flex justify-center items-center",
-                            team.name == currentTeamName && "current-team"
+                            team.id == playingTeam.id && "current-team"
                         )}
                     >
                         <span className="">

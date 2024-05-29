@@ -2,15 +2,11 @@ import { useEffect, useState } from "react";
 
 import { useTimer } from "@/hooks/useTimer";
 
-import { gameRounds, ROUND_1_ID, ENDGAME_ID } from "@/data/rounds";
+import { ROUND_1_ID, ENDGAME_ID, gameRounds } from "@/data/rounds";
 import { wordsDeck } from "@/data/wordsDeck";
 import { gameTeams } from "@/data/teams";
 
-export const useGame = (
-    CURRENT_TEAM: number,
-    CURRENT_WORD: number,
-    TOTAL_TIME: number
-) => {
+export const useGame = (CURRENT_WORD: number, TOTAL_TIME: number) => {
     // Game
     const [isPlaying, setIsPlaying] = useState(false);
     const [ended, setEnded] = useState(false);
@@ -34,8 +30,34 @@ export const useGame = (
     // Teams
     const [teams, setTeams] = useState(gameTeams);
     const [winner, setWinner] = useState(null);
+    const [playingTeam, setPlayingTeam] = useState(gameTeams[0]);
+
+    const setRoundPlayingTeam = (teamId): void => {
+        const updatedRound = { ...currentRound };
+        const nextTeam = gameTeams.find(team => team.id === teamId);
+
+        setPlayingTeam(nextTeam);
+    };
+
+    const findNextTeam = () => {
+        const currentTeamIndex = gameTeams.findIndex(
+            team => team.id === playingTeam.id
+        );
+        const nextTeamIndex =
+            gameTeams.length - 1 === currentTeamIndex
+                ? 0
+                : currentTeamIndex + 1;
+        const nextTeamId = gameTeams[nextTeamIndex].id;
+
+        return nextTeamId;
+    };
 
     const changeTeam = () => {
+        const nextTeam = findNextTeam();
+
+        setRoundPlayingTeam(nextTeam);
+
+        // @TODO: Remove old implementation and implement new one
         const [currentTeam, waitingTeam] = teams;
 
         setTeams([waitingTeam, currentTeam]);
@@ -47,20 +69,8 @@ export const useGame = (
     };
 
     const addPoint = () => {
-        const updatedTeams = teams.map((team, i) => {
-            if (i === CURRENT_TEAM) team.points++;
-
-            return team;
-        });
-
-        setTeams(updatedTeams);
+        // @TODO: Implement add point to round state
     };
-
-    // Timer
-    const { timer, isRunning, resumeTimer, stopTimer, resetTimer } = useTimer(
-        TOTAL_TIME,
-        changeTeam
-    );
 
     // Words
     const setInitialWords = wordsList => {
@@ -140,6 +150,12 @@ export const useGame = (
         setCurrentRound(gameRounds[currentRound.nextRound]);
     };
 
+    // Timer
+    const { timer, isRunning, resumeTimer, stopTimer, resetTimer } = useTimer(
+        TOTAL_TIME,
+        changeTeam
+    );
+
     return {
         isPlaying,
         ended,
@@ -154,5 +170,6 @@ export const useGame = (
         wordIsCorrect,
         wordIsNotCorrect,
         currentRound,
+        playingTeam,
     };
 };

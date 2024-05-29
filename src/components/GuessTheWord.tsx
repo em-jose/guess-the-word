@@ -8,16 +8,16 @@ import { PlayButton } from "@components/PlayButton";
 
 import { useGame } from "@/hooks/useGame";
 
-const CURRENT_TEAM: number = 0;
+import { gameTeams } from "@/data/teams";
+
 const CURRENT_WORD: number = 0;
-const TOTAL_TIME: number = 45;
+const TOTAL_TIME: number = 2;
 
 export const GuessTheWord = () => {
     const {
         isPlaying,
         ended,
         initGame,
-        teams,
         winner,
         timer,
         isRunning,
@@ -27,7 +27,8 @@ export const GuessTheWord = () => {
         wordIsCorrect,
         wordIsNotCorrect,
         currentRound,
-    } = useGame(CURRENT_TEAM, CURRENT_WORD, TOTAL_TIME);
+        playingTeam,
+    } = useGame(CURRENT_WORD, TOTAL_TIME);
 
     return (
         <div className="p-5 bg-amber-50">
@@ -39,18 +40,12 @@ export const GuessTheWord = () => {
 
             <main>
                 {ended ? (
-                    <EndGame
-                        winnerName={teams[winner].name}
-                        winnerPoints={teams[winner].points}
-                        winnerRounds={teams[winner].wonRounds}
-                    />
+                    <EndGame />
                 ) : (
                     <div>
                         {isPlaying ? (
                             <div>
-                                <PlayingTeam
-                                    teamName={teams[CURRENT_TEAM].name}
-                                />
+                                <PlayingTeam playingTeam={playingTeam} />
 
                                 <Timer
                                     timer={timer}
@@ -70,9 +65,9 @@ export const GuessTheWord = () => {
                             <div className="flex justify-center items-center flex-col">
                                 <GameInfo
                                     currentRound={currentRound}
-                                    teams={teams}
+                                    teams={gameTeams}
                                     remainingWords={words.length}
-                                    currentTeamName={teams[CURRENT_TEAM].name}
+                                    playingTeam={playingTeam}
                                 />
 
                                 <PlayButton initGame={initGame} />
