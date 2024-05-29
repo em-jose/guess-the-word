@@ -6,7 +6,7 @@ export const ROUND_2_ID: string = "round2";
 export const ROUND_3_ID: string = "round3";
 export const ENDGAME_ID: string = "end";
 
-const points = {
+export const points = {
     [RED_TEAM_ID]: 0,
     [BLUE_TEAM_ID]: 0,
 };
@@ -20,7 +20,7 @@ export const gameRounds = {
             "Consectetur adipisicing elit",
             "Sed do eiusmod tempor",
         ],
-        points: points,
+        points: { ...points },
         canSkipWord: false,
         nextRound: ROUND_2_ID,
     },
@@ -31,7 +31,7 @@ export const gameRounds = {
             "Tempor incididunt ut labore et dolore magna aliqua",
             "Lorem ipsum dolor",
         ],
-        points: points,
+        points: { ...points },
         canSkipWord: true,
         nextRound: ROUND_3_ID,
     },
@@ -42,7 +42,7 @@ export const gameRounds = {
             "Do eiusmod tempor incididunt",
             "Dolor sit amet, consectetur adipisicing elit",
         ],
-        points: points,
+        points: { ...points },
         canSkipWord: true,
         nextRound: ENDGAME_ID,
     },

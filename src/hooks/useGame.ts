@@ -56,11 +56,6 @@ export const useGame = (CURRENT_WORD: number, TOTAL_TIME: number) => {
         const nextTeam = findNextTeam();
 
         setRoundPlayingTeam(nextTeam);
-
-        // @TODO: Remove old implementation and implement new one
-        const [currentTeam, waitingTeam] = teams;
-
-        setTeams([waitingTeam, currentTeam]);
         stopGame();
     };
 
@@ -69,7 +64,10 @@ export const useGame = (CURRENT_WORD: number, TOTAL_TIME: number) => {
     };
 
     const addPoint = () => {
-        // @TODO: Implement add point to round state
+        const updatedRound = { ...currentRound };
+        updatedRound.points[playingTeam.id]++;
+
+        setCurrentRound(updatedRound);
     };
 
     // Words
